@@ -1,0 +1,539 @@
+:root {
+  --fundo: #000;
+  --cinza-escuro: #333333;
+  --cinza-claro: #a5a5a5;
+  --cinza-op: #1f1f21;
+  --laranja: #ff9f0a;
+  --texto: #fff;
+  --secundario: #8e8e93;
+  --apagado: #545458;
+  --vermelho: #ff453a;
+  --verde: #30d158;
+
+  --largura: min(100vw, 430px);
+  --altura: 100dvh;
+  --margem: 22px;
+  --gap: 14px;
+  /* Tamanho da tecla: cabe na largura e deixa espaço para o display */
+  --tecla: min(
+    calc((var(--largura) - 2 * var(--margem) - 3 * var(--gap)) / 4),
+    calc((var(--altura) - 290px) / 6.4),
+    84px
+  );
+  --area-teclado: calc(4 * var(--tecla) + 3 * var(--gap));
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--fundo);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  color: var(--texto);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------
+   Moldura do "telefone"
+   --------------------------------------------------------------- */
+.telefone {
+  width: var(--largura);
+  height: var(--altura);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(16px, env(safe-area-inset-top)) var(--margem) max(26px, env(safe-area-inset-bottom));
+  background: var(--fundo);
+}
+
+@media (min-width: 620px) and (min-height: 700px) {
+  :root {
+    --largura: 410px;
+    --altura: min(calc(100dvh - 48px), 880px);
+  }
+
+  body {
+    background: radial-gradient(120% 80% at 50% 0%, #1c1c1e 0%, #000 65%);
+  }
+
+  .telefone {
+    border-radius: 56px;
+    box-shadow: 0 0 0 11px #1a1a1c, 0 0 0 12px #3a3a3c, 0 40px 90px rgba(0, 0, 0, 0.7);
+    padding-top: 30px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Display
+   --------------------------------------------------------------- */
+.display {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 4px 14px;
+  scrollbar-width: none;
+}
+
+.display::-webkit-scrollbar {
+  display: none;
+}
+
+.conteudo {
+  margin-top: auto; /* mantém o conteúdo "colado" embaixo, como no iPhone */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  text-align: right;
+}
+
+.trilha {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.chip {
+  border: none;
+  font: inherit;
+  font-size: 13px;
+  color: var(--secundario);
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chip.feito {
+  color: #c7c7cc;
+}
+
+.chip.ativo {
+  color: var(--texto);
+  background: var(--cinza-escuro);
+}
+
+.titulo {
+  font-size: 15px;
+  color: var(--secundario);
+}
+
+.dica {
+  font-size: 13px;
+  color: var(--secundario);
+  max-width: 100%;
+}
+
+.erro {
+  font-size: 14px;
+  color: var(--vermelho);
+  max-width: 100%;
+}
+
+/* Linha grande, como o número principal da calculadora do iPhone */
+.grande {
+  width: 100%;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+
+.grande .placeholder {
+  color: var(--apagado);
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.8em;
+  margin-left: 3px;
+  background: var(--laranja);
+  border-radius: 2px;
+  vertical-align: -0.04em;
+  animation: piscar 1.05s steps(1) infinite;
+}
+
+@keyframes piscar {
+  50% {
+    opacity: 0;
+  }
+}
+
+.rotulo-campo {
+  font-size: 15px;
+  color: var(--laranja);
+}
+
+/* Ordem (linhas × colunas) */
+.dims {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dim {
+  border: none;
+  font: inherit;
+  background: transparent;
+  color: var(--apagado);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.dim .num {
+  font-size: 76px;
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.dim .und {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.dim.ativo {
+  color: var(--texto);
+}
+
+.dim.ativo .und {
+  color: var(--laranja);
+}
+
+.dim.travado {
+  cursor: default;
+}
+
+.dims .x {
+  font-size: 44px;
+  font-weight: 200;
+  color: var(--secundario);
+  line-height: 76px;
+}
+
+/* ---------------------------------------------------------------
+   Matrizes
+   --------------------------------------------------------------- */
+.matriz-rolagem {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px;
+}
+
+.matriz-rolagem::-webkit-scrollbar {
+  display: none;
+}
+
+.matriz {
+  position: relative;
+  display: grid;
+  gap: 5px 6px;
+  padding: 6px 12px;
+  width: max-content;
+  margin-left: auto;
+}
+
+/* colchetes */
+.matriz::before,
+.matriz::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  border: 1.5px solid var(--secundario);
+}
+
+.matriz::before {
+  left: 0;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.matriz::after {
+  right: 0;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+
+.cel {
+  position: relative;
+  border: none;
+  font: inherit;
+  min-width: 2.3em;
+  padding: 0.32em 0.5em;
+  border-radius: 10px;
+  background: var(--cinza-op);
+  color: var(--texto);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.cel.vazia {
+  color: var(--apagado);
+}
+
+.cel.invalida {
+  color: var(--vermelho);
+}
+
+.cel.ativa {
+  background: var(--cinza-escuro);
+  box-shadow: 0 0 0 2px var(--laranja);
+}
+
+.cel.res {
+  background: transparent;
+  cursor: default;
+  padding: 0.2em 0.45em;
+}
+
+/* linha vertical antes da coluna dos termos independentes */
+.cel.termo {
+  margin-left: 10px;
+}
+
+.cel.termo::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: -3px;
+  bottom: -3px;
+  width: 1.5px;
+  background: var(--apagado);
+}
+
+.cab {
+  font-size: 12px;
+  color: var(--secundario);
+  text-align: center;
+  padding-bottom: 2px;
+}
+
+.cab.termo {
+  margin-left: 10px;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  vertical-align: middle;
+  font-size: 0.72em;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.frac > span:first-child {
+  border-bottom: 1.5px solid currentColor;
+  padding: 0 2px 1px;
+}
+
+.frac > span:last-child {
+  padding-top: 1px;
+}
+
+/* ---------------------------------------------------------------
+   Resultado do sistema linear
+   --------------------------------------------------------------- */
+.passo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  width: 100%;
+}
+
+.passo h3 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--secundario);
+}
+
+.passo + .passo {
+  padding-top: 12px;
+  border-top: 0.5px solid #2c2c2e;
+}
+
+.linha {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.linha.fraca {
+  font-size: 14px;
+  color: #c7c7cc;
+}
+
+.selo {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  margin-left: 8px;
+  border-radius: 999px;
+  vertical-align: 2px;
+  color: #000;
+  background: var(--verde);
+}
+
+.selo.falha {
+  background: var(--vermelho);
+}
+
+.classificacao {
+  font-size: 15px;
+  color: var(--laranja);
+}
+
+/* ---------------------------------------------------------------
+   Teclado
+   --------------------------------------------------------------- */
+.ops {
+  width: var(--area-teclado);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 9px;
+  margin: 6px 0 var(--gap);
+}
+
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(4, var(--tecla));
+  grid-auto-rows: var(--tecla);
+  gap: var(--gap);
+}
+
+.tecla {
+  border: none;
+  border-radius: 999px;
+  font: inherit;
+  font-size: calc(var(--tecla) * 0.43);
+  font-weight: 400;
+  color: var(--texto);
+  background: var(--cinza-escuro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: filter 0.35s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.tecla:active,
+.tecla.pressionada {
+  filter: brightness(1.55);
+  transition: none;
+}
+
+.tecla svg {
+  width: 0.78em;
+  height: 0.78em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tecla.clara {
+  background: var(--cinza-claro);
+  color: #000;
+  font-size: calc(var(--tecla) * 0.36);
+  font-weight: 500;
+}
+
+.tecla.clara:active,
+.tecla.clara.pressionada {
+  filter: brightness(1.25);
+}
+
+.tecla.laranja {
+  background: var(--laranja);
+  font-size: calc(var(--tecla) * 0.5);
+}
+
+.tecla.laranja svg {
+  stroke-width: 2.4;
+}
+
+.tecla.laranja:active,
+.tecla.laranja.pressionada {
+  filter: none;
+  background: #fcc78d;
+}
+
+.tecla.zero {
+  grid-column: span 2;
+  justify-content: flex-start;
+  padding-left: calc(var(--tecla) * 0.38);
+}
+
+.tecla.op {
+  aspect-ratio: 1;
+  background: var(--cinza-op);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.tecla.op sup {
+  font-size: 0.65em;
+  margin-left: 1px;
+}
+
+/* operação escolhida: branco com texto laranja, igual ao operador ativo do iPhone */
+.tecla.op.ativo {
+  background: var(--texto);
+  color: var(--laranja);
+}
+
+.tecla.ocupada {
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+
+  .tecla {
+    transition: none;
+  }
+}

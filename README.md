@@ -37,7 +37,30 @@ No Windows, também pode ser necessário usar:
 py calc.py
 ```
 
-Escolha no menu o número da operação. Em seguida, o programa pede a ordem da(s) matriz(es) e cada elemento, um por vez. Os números podem ser inteiros, decimais ou frações (`2`, `1.5`, `1/3`). Os cálculos usam frações exatas, então não há erro de arredondamento.
+### Interface web (estilo calculadora do iPhone)
+
+Também dá para usar a calculadora pelo navegador. Os cálculos continuam sendo feitos pelo `calc.py`; o `app.py` só liga a página às funções dele, usando apenas a biblioteca padrão do Python (não precisa instalar nada).
+
+```bash
+python app.py
+```
+
+O navegador abre em `http://127.0.0.1:8000` (para outra porta: `python app.py 8080`).
+
+| Tecla | Função |
+| --- | --- |
+| `A+B` `k·A` `A·B` `Aᵀ` `A⁻¹` `Sist` | Escolhem a operação (a escolhida fica branca). |
+| `0`–`9`, `,`, `/` | Digitam o valor do campo atual (`/` cria frações, ex.: `1/3`). |
+| `+/-` | Troca o sinal. |
+| `⌫` | Apaga o último caractere. |
+| `C` / `AC` | `C` limpa o campo atual; `AC` limpa todos os valores da operação. |
+| `‹` `›` | Vão para o campo anterior / próximo. |
+| `↵` | Vai para a próxima etapa (ordem → matriz A → matriz B). |
+| `=` | Calcula. |
+
+Também é possível tocar direto numa célula ou nas etapas do topo do display, e usar o teclado do computador (números, `,`, `/`, `-`, setas, `Tab`, `Backspace`, `Esc` e `Enter`). Células vazias valem 0, e a ordem das matrizes vai de 1 a 10.
+
+No terminal, escolha no menu o número da operação. Em seguida, o programa pede a ordem da(s) matriz(es) e cada elemento, um por vez. Os números podem ser inteiros, decimais ou frações (`2`, `1.5`, `1/3`). Os cálculos usam frações exatas, então não há erro de arredondamento.
 
 ## Regras das operações
 
@@ -94,5 +117,6 @@ Exemplo (SPI): `x + y = 2` e `2x + 2y = 4` resultam em `x2 = livre` e `x1 = 2 - 
 
 ## Tecnologias
 
-- Python
+- Python (`http.server` na interface web)
+- HTML, CSS e JavaScript
 - Git

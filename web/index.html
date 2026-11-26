@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Calculadora de Matrizes</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <main class="telefone">
+    <section class="display" id="display" aria-live="polite"></section>
+
+    <div class="ops" role="group" aria-label="Operação">
+      <button class="tecla op" data-op="soma" aria-label="Soma">A+B</button>
+      <button class="tecla op" data-op="escalar" aria-label="Multiplicação escalar">k·A</button>
+      <button class="tecla op" data-op="multiplicacao" aria-label="Multiplicação">A·B</button>
+      <button class="tecla op" data-op="transposta" aria-label="Transposta">A<sup>T</sup></button>
+      <button class="tecla op" data-op="inversa" aria-label="Inversa">A<sup>-1</sup></button>
+      <button class="tecla op" data-op="sistema" aria-label="Sistema linear">Sist</button>
+    </div>
+
+    <div class="teclado">
+      <button class="tecla clara" data-tecla="limpar" id="tecla-limpar">AC</button>
+      <button class="tecla clara" data-tecla="sinal" aria-label="Trocar sinal">
+        <svg viewBox="0 0 24 24"><path d="M2.5 8h6M5.5 5v6M8.5 20l7-16M15.5 16h6" /></svg>
+      </button>
+      <button class="tecla clara" data-tecla="apagar" aria-label="Apagar">
+        <svg viewBox="0 0 24 24"><path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z" /><path d="M17 9l-6 6M11 9l6 6" /></svg>
+      </button>
+      <button class="tecla laranja" data-tecla="/" aria-label="Fração">
+        <svg viewBox="0 0 24 24"><path d="M16 4 8 20" /></svg>
+      </button>
+
+      <button class="tecla" data-tecla="7">7</button>
+      <button class="tecla" data-tecla="8">8</button>
+      <button class="tecla" data-tecla="9">9</button>
+      <button class="tecla laranja" data-tecla="anterior" aria-label="Campo anterior">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" /></svg>
+      </button>
+
+      <button class="tecla" data-tecla="4">4</button>
+      <button class="tecla" data-tecla="5">5</button>
+      <button class="tecla" data-tecla="6">6</button>
+      <button class="tecla laranja" data-tecla="proximo" aria-label="Próximo campo">
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
+      </button>
+
+      <button class="tecla" data-tecla="1">1</button>
+      <button class="tecla" data-tecla="2">2</button>
+      <button class="tecla" data-tecla="3">3</button>
+      <button class="tecla laranja" data-tecla="etapa" aria-label="Próxima etapa">
+        <svg viewBox="0 0 24 24"><path d="M19 5v6a3 3 0 0 1-3 3H5" /><path d="M9 10l-4 4 4 4" /></svg>
+      </button>
+
+      <button class="tecla zero" data-tecla="0">0</button>
+      <button class="tecla" data-tecla=",">,</button>
+      <button class="tecla laranja" data-tecla="=" aria-label="Calcular">=</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
